@@ -17,7 +17,7 @@ def clean_constants():
         player["height"] = player['height'].split()
         player['height'] = int(player['height'][0])
         player['guardians'] = player['guardians'].split(" and ")
-        if player['experience'] == 'Yes':
+        if player['experience'] == 'YES':
             player['experience'] = True
         else:
             player['experience'] = False
@@ -60,7 +60,10 @@ def sub_menu():
 def display_team_info(option):
     try:
         team = team_list[int(option) - 1]
-        players_on_team = [dic["name"] for dic in league[team]]
+        players_on_team = [player["name"] for player in league[team]]
+        average_height = round(sum([player["height"] for player in league[team]]) / len(players_on_team), 2)
+        experienced_players = len([player['experience'] for player in league[team] if player['experience'] == True])
+        inexperienced_players = len([player['experience'] for player in league[team] if player['experience'] == False])
         print("\n\nTEAM: {} Stats".format(team))
         print("-" * 26, "\n")
         print("Total Players: {}".format(len(league[team])))
@@ -71,6 +74,9 @@ def display_team_info(option):
                 print(player, end="\n\n")
             else:
                 print(player, end=", ")
+        print("Number of Experienced Players: {}".format(experienced_players))
+        print("Number of Inexperienced Players: {}".format(inexperienced_players))
+        print("Average Height: {} inches\n\n".format(average_height))
         input("Press Enter to continue.")
         clear_screen()
         welcome()
