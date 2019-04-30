@@ -1,4 +1,5 @@
 import constants
+from copy import deepcopy
 import os
 
 # http://wordaligned.org/articles/slicing-a-list-evenly-with-python
@@ -9,18 +10,30 @@ def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
 
+def clean_constants():
+    teams = constants.TEAMS[:]
+    players = deepcopy(constants.PLAYERS)
+    for player in players:
+        player["height"] = player['height'].split()
+        player['height'] = int(player['height'][0])
+        player['guardians'] = player['guardians'].split(" and ")
+        if player['experience'] == 'Yes':
+            player['experience'] = True
+        else:
+            player['experience'] = False
+
+    return players, teams
+
+
 def divide_players(players, teams):
     '''Divides a given iterable of players into equal teams'''
-    team_list = constants.TEAMS.copy()
+    team_list = teams
     players_len = len(players)
     num_teams = players_len//len(teams)
     split_team_list = [players[player:player+num_teams] for player in range(0, players_len, num_teams)]
-    
     league = dict(zip(team_list, split_team_list))
 
-    
     return league, split_team_list, team_list
-    #[l[i:i + n] for i in range(0, len(l), n)]
 
 
 def welcome():
@@ -68,7 +81,7 @@ def display_team_info(option):
 
 
 if __name__ == "__main__":
-    league, split_team_list, team_list = divide_players(constants.PLAYERS, constants.TEAMS)
+    league, split_team_list, team_list = divide_players(*clean_constants())
     clear_screen()
     welcome()
 
