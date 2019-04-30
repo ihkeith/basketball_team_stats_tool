@@ -13,9 +13,8 @@ def divide_players(players, teams):
     
     league = dict(zip(constants.TEAMS, split_team_list))
 
-    # for key, value in league.items():
-    #     print("{}:  {}\n".format(key, value))
-    return league
+    team_list = constants.TEAMS.copy()
+    return league, split_team_list, team_list
     #[l[i:i + n] for i in range(0, len(l), n)]
 
 
@@ -41,8 +40,13 @@ def sub_menu():
 
 
 def display_team_info(option):
-    print("\n\nTEAM: {} Stats".format(constants.TEAMS[int(option) - 1]))
+    team = team_list[int(option) - 1]
+    players_on_team = list(league[team])
+    print("\n\nTEAM: {} Stats".format(team))
     print("_" * 10, "\n\n")
+    print("Total Players: {}".format(len(league[team])))
+    print()
+    print("Player on Team: {}".format(players_on_team))
 
 
 if __name__ == "__main__":
@@ -52,9 +56,11 @@ if __name__ == "__main__":
 # clean the data
 # balance on total players
 # console readability matters
+    league, split_team_list, team_list = divide_players(constants.PLAYERS, constants.TEAMS)
+
     clear_screen()
-    divide_players(constants.PLAYERS, constants.TEAMS)
     welcome()
+
     while True:
         menu()
         command = input("Please enter the number for the COMMAND that you want >   ")
