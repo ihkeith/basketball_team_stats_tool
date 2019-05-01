@@ -1,11 +1,13 @@
 import constants
 from copy import deepcopy
+import csv
 import os
 
 # http://wordaligned.org/articles/slicing-a-list-evenly-with-python
 #### great resource: I tried figuring out how to divide the list and thought about slices, but didn't think of using steps
 # https://stackoverflow.com/questions/7271385/how-do-i-combine-two-lists-into-a-dictionary-in-python
 #### I used this one for making my league dictionary
+# https://stackoverflow.com/questions/14204326/how-to-copy-a-dictionary-of-lists --> deep copy
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -21,7 +23,7 @@ def clean_constants():
             player['experience'] = True
         else:
             player['experience'] = False
-
+    
     return players, teams
 
 
@@ -64,6 +66,7 @@ def display_team_info(option):
         average_height = round(sum([player["height"] for player in league[team]]) / len(players_on_team), 2)
         experienced_players = len([player['experience'] for player in league[team] if player['experience'] == True])
         inexperienced_players = len([player['experience'] for player in league[team] if player['experience'] == False])
+        guardians = [", ".join(player['guardians']) for player in league[team]]
         print("\n\nTEAM: {} Stats".format(team))
         print("-" * 26, "\n")
         print("Total Players: {}".format(len(league[team])))
@@ -71,9 +74,15 @@ def display_team_info(option):
         print("Player on Team: ", end="")
         for player in players_on_team:
             if player == players_on_team[-1]:
-                print(player, end="\n\n")
+                print(player)
             else:
                 print(player, end=", ")
+        print("Guardians: ", end="")
+        for guardian in guardians:
+            if guardian == guardians[-1]:
+                print(guardian, end="\n\n")
+            else:
+                print(guardian, end=", ")
         print("Number of Experienced Players: {}".format(experienced_players))
         print("Number of Inexperienced Players: {}".format(inexperienced_players))
         print("Average Height: {} inches\n\n".format(average_height))
