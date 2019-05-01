@@ -2,17 +2,29 @@
 
 In this project you will be writing a program that reads from the "constants" data (`PLAYERS` and `TEAMS`) in `constants.py`. This data will need to be translated into a new collection of your choosing and the fields need to be changed to something that makes more sense for Python to do its comparisons.
 
-**NOTE**: Python has no concept of actual constants like some other languages out there. But it is a convention in Python to treat ALL CAPS variables as if they are in-fact constants.
+## Project Requirements
 
-**Steps to get started:**
+### Meets Expectations
 
-1. Create a new empty script file called `app.py` or `application.py`
+- Create a new file seperate from _constants.py_ called _app.py_ or _application.py_.
+- Import and use the data from _constants.py_ in your program, but do not change the data in _constants_.
+- Catch exceptions and errors
+- Function calls, print statements, or any calculated execution logic should be wrapped inside a Dunder Main statement for your script.
+- Clean the data from _constants.py_ when adding it to the new data structure: player experience should be boolean True or False instead of a string; player height should be an int; guardians should be split into a list of strings
+- Assign players to each team so the teams are evenly balanced by total players. The same player cannot be assigned to multiple teams.
+- Create a clear and readable menu for the user
+- The team stats should display the team's name, the total number of players, and the player names as a comma-separated string (not a list object)
 
-2. Inside this new file, you will want a Dunder Main statement:
-   For a refresh on Dunder Main:
-   [Dunder Main](https://teamtreehouse.com/library/understanding-dunder-main-main)
+#### Exceeds Expectations
 
-3. Any print statements or function calls you will want to be inside Dunder Main or inside a main function call which is nested inside Dunder Main.
-   If you need a refresh, check out the supplied Project 1 files/workspace for an example.
+- Clean the guardians string so that it becomes a List of strings. Remove the and between the names and storing each guardian in a List together for that player.
+- Also balance players in a way that also ensures teams have equal numbers of experienced vs inexperienced players.
+- The user should be re-prompted with the main menu until they decide to "Quit the program".
+- The stats should also display the number of experienced vs inexperienced players, average height, and all of the guardians as a comma-separated list.
 
-If you get stuck, try to work through the problem. Sometimes it helps to try to write/draw out your steps on paper in the order your program should run in and solve each step 1 at a time. If you are still stuck be sure to reach out in the Python Techdegree #unit-02 Slack channel.
+## What I Learned
+
+I struggled a bit with this project, especially the logic to combine the TEAMS list and the PLAYERS list of dictionaries. Balancing the teams was difficult also. I had to research the issue and them take the suggested code and modify it in my code (see comments in the code). I also learned:
+
+- List comprehensions
+- Tuple unpacking (returning a tuple in a function and then using that as the input to another function using *func)
