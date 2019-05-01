@@ -15,7 +15,7 @@ In this project you will be writing a program that reads from the "constants" da
 - Create a clear and readable menu for the user
 - The team stats should display the team's name, the total number of players, and the player names as a comma-separated string (not a list object)
 
-#### Exceeds Expectations
+### Exceeds Expectations
 
 - Clean the guardians string so that it becomes a List of strings. Remove the and between the names and storing each guardian in a List together for that player.
 - Also balance players in a way that also ensures teams have equal numbers of experienced vs inexperienced players.
