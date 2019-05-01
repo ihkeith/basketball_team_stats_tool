@@ -28,3 +28,5 @@ I struggled a bit with this project, especially the logic to combine the TEAMS l
 
 - List comprehensions
 - Tuple unpacking (returning a tuple in a function and then using that as the input to another function using *func)
+- Zip to combine two iterables
+- How to use deepcopy(); I had a bug where I set a variable to be a copy of PLAYERS. However, when I tried to modify the dictionaries inside of the copy, it changed the original. Deepcopy resolved this.
