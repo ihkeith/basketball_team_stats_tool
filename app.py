@@ -3,17 +3,13 @@ from copy import deepcopy
 import csv
 import os
 
-# http://wordaligned.org/articles/slicing-a-list-evenly-with-python
-#### great resource: I tried figuring out how to divide the list and thought about slices, but didn't think of using steps
-# https://stackoverflow.com/questions/7271385/how-do-i-combine-two-lists-into-a-dictionary-in-python
-#### I used this one for making my league dictionary
-# https://stackoverflow.com/questions/14204326/how-to-copy-a-dictionary-of-lists --> deep copy
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
 
 def clean_constants():
     teams = constants.TEAMS[:]
+# https://stackoverflow.com/questions/14204326/how-to-copy-a-dictionary-of-lists --> deep copy
     players = deepcopy(constants.PLAYERS)
     for player in players:
         player["height"] = player['height'].split()
@@ -32,7 +28,11 @@ def divide_players(players, teams):
     team_list = teams
     players_len = len(players)
     num_teams = players_len//len(teams)
+# http://wordaligned.org/articles/slicing-a-list-evenly-with-python
+#### great resource: I tried figuring out how to divide the list and thought about slices, but didn't think of using steps
     split_team_list = [players[player:player+num_teams] for player in range(0, players_len, num_teams)]
+# https://stackoverflow.com/questions/7271385/how-do-i-combine-two-lists-into-a-dictionary-in-python
+#### I used this one for making my league dictionary
     league = dict(zip(team_list, split_team_list))
 
     return league, split_team_list, team_list
