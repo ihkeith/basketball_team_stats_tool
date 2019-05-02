@@ -9,7 +9,7 @@ def clear_screen():
 
 def clean_constants():
     teams = constants.TEAMS[:]
-# https://stackoverflow.com/questions/14204326/how-to-copy-a-dictionary-of-lists --> deep copy
+# https://stackoverflow.com/questions/14204326/how-to-copy-a-dictionary-of-lists
     players = deepcopy(constants.PLAYERS)
     for player in players:
         player["height"] = player['height'].split()
@@ -29,16 +29,19 @@ def divide_players(players, teams):
 #     players_len = len(players)
 #     num_teams = players_len//len(teams)
 # # http://wordaligned.org/articles/slicing-a-list-evenly-with-python
-# #### great resource: I tried figuring out how to divide the list and thought about slices, but didn't think of using steps
+# #### great resource: I tried figuring out how to divide the list and thought
+# #### about slices, but didn't think of using steps
 #     split_team_list = [players[player:player+num_teams] for player in range(0, players_len, num_teams)]
 # # https://stackoverflow.com/questions/7271385/how-do-i-combine-two-lists-into-a-dictionary-in-python
 # #### I used this one for making my league dictionary
 #     league = dict(zip(team_list, split_team_list))
-
+# I had a bit of an epiphany when one of the instructor's (chrisrh) comments
+# finally made sense: think of a dealer (a for or while loop)
+# dealing cards to the players (the teams). Finally made sense after I stepped
+# away from the keyboard for a bit.
     panthers = []
     bandits = []
     warriors = []
-    
     experienced_players = [player for player in players if player['experience'] == True]
     inexperienced_players = [player for player in players if player['experience'] == False]
 
@@ -46,14 +49,13 @@ def divide_players(players, teams):
         panthers.append(experienced_players.pop())
         bandits.append(experienced_players.pop())
         warriors.append(experienced_players.pop())
-
     while inexperienced_players:
         panthers.append(inexperienced_players.pop())
         bandits.append(inexperienced_players.pop())
         warriors.append(inexperienced_players.pop())
-
+    
     teams_list = [panthers, bandits, warriors]
-    # return league, split_team_list, team_list
+
     return panthers, bandits, warriors, teams_list
 
 
@@ -80,7 +82,7 @@ def sub_menu():
 
 def display_team_info(option):
     try:
-        team = team_list[int(option) - 1]
+        team = teams_list[int(option) - 1]
         players_on_team = [player['name'] for player in team]
         average_height = round(sum([player["height"] for player in team]) / len(players_on_team), 2)
         experienced_players = len([player['experience'] for player in team if player['experience'] == True])
@@ -114,11 +116,7 @@ def display_team_info(option):
         print("\nThat is not a valid option. Please try again. \n")
 
 
-if __name__ == "__main__":
-    panthers, bandits, warriors, team_list = divide_players(*clean_constants())
-    clear_screen()
-    welcome()
-
+def main():
     while True:
         menu()
         command = input("Please enter the number for the COMMAND that you want >   ")
@@ -131,7 +129,10 @@ if __name__ == "__main__":
             pass
         elif command == '2':
             clear_screen()
-            welcome()
+            print('Team Stats will display a submenu to choose which team stats to display')
+            print('Help will display this message and the main menu')
+            print('Quit will exit the program')
+            print()
             continue
         elif command == '3':
             print("Good bye.\n\n")
@@ -139,3 +140,11 @@ if __name__ == "__main__":
         else:
             print("\nThat is not a valid option. Please try again. \n")
             continue
+
+
+if __name__ == "__main__":
+    panthers, bandits, warriors, teams_list = divide_players(*clean_constants())
+    clear_screen()
+    welcome()
+
+    main()
